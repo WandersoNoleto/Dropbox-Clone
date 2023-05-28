@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "currency-converter"
+version = "0.1.0"
+description = "A simple and efficient currency conversion API that allows you to effortlessly convert between diffent currencies. This project utilizes the latest exchange rate date to provide accurate and up-to-date conversions. Exand the capayour applications by integrating this reliable and versatile currency converter API]"
+authors = ["WandersoNoleto <onlywanderson@gmail.com>"]
+readme = "README.md"
+packages = [{include = "currency_converter"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.95.2"
+uvicorn = "^0.22.0"
+requests = "^2.31.0"
+aiohttp = "^3.8.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
