@@ -1,8 +1,10 @@
 from asyncio import gather
+from datetime import date
 
 from fastapi import APIRouter, Path, Query
 
-from converter import async_converter, sync_converter
+from route_functions import (async_converter, close_exchange_date,
+                             sync_converter)
 from schemas import ConverterInput, ConvertOutput
 
 router = APIRouter(prefix='/converter')
@@ -71,3 +73,25 @@ async def async_converter_router(
         message='success',
         data=result
        )
+
+
+@router.get('/close_daily/{from_currency}$to={to_currency}$in={date}')
+async def close_exchange_date_router(
+    from_currency: str = Path(max_length = 3, regex = '^[A-Z]{3}$'), 
+    to_currency: str = Path(max_length = 60, regex = '^[A-Z]{3}(,[A-Z]{3})*$'), 
+    date: str = Path(max_length=10, regex = '^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])$'
+) 
+    ):
+
+    coroutines = []
+
+    coro = close_exchange_date(
+        from_currency = from_currency,
+        to_currencies = to_currency,
+        date = date
+    )
+
+    coroutines.append(coro)
+
+    result = await gather(*coroutines)
+    return result
