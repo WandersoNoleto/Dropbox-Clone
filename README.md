@@ -39,7 +39,7 @@ uvicorn main:app --reload
 ```
 
 
-# :world_map: ROUTES
+# :world_map: Routes
 
 ## Convert the value from one currency to another
 
